@@ -21,13 +21,15 @@ import transport.PublicTransport;
  */
 public class CityBus extends PublicTransport {
 
-	// Visibility: Protected as defined by the assignment instructions (package access and derived classes)
+	// Old Visibility: Protected as defined by the assignment instructions (package access and derived classes)
 	// -> This allows for easily extending the class and derived classes can use these attributes without
 	// using mutators and accessors.
-	protected long   routeNumber;
-	protected int    beginOperationYear;
-	protected String lineName   = "";
-	protected String driverName = "";
+	// New Visibility: private -> All derived classes must use mutators and accessors to access these attributes
+	// Only affects the derived classes toString (parameterized constructor and equals() uses super)
+	private long   routeNumber;
+	private int    beginOperationYear;
+	private String lineName   = "";
+	private String driverName = "";
 
 	/**
 	 * Default Constructor for CityBus
@@ -183,8 +185,8 @@ public class CityBus extends PublicTransport {
 	 */
 	public String toString() {
 		return "This City Bus's" +
-				" ticket price is $" + ticketPrice +
-				" and has " + numberOfStops + " stops." +
+				" ticket price is $" + getTicketPrice() +
+				" and has " + getNumberOfStops() + " stops." +
 				" The Route Number " + routeNumber +
 				" (" + lineName + ")" +
 				" started in " + beginOperationYear +

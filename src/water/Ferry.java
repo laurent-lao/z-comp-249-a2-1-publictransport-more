@@ -21,11 +21,13 @@ import transport.PublicTransport;
  */
 public class Ferry extends PublicTransport {
 
-	// Visibility: package access -> allows for access of attributes of object from any class/object in the package
+	// Old Visibility: package access -> allows for access of attributes of object from any class/object in the package
 	// This class could be easily derived and derived classes can use these attributes without mutators and accessors
 	// as long as the derived classes are within the same package.
-	int    buildYear;
-	String skipName = "";
+	// New Visibility: private -> All derived classes must use mutators and accessors to access these attributes
+	// Doesn't affect anything as Ferry does not have any derived classes atm
+	private int    buildYear;
+	private String skipName = "";
 
 	/**
 	 * Default Constructor for Ferry
@@ -136,8 +138,8 @@ public class Ferry extends PublicTransport {
 	 */
 	public String toString() {
 		return "This Ferry's" +
-				" ticket price is $" + ticketPrice +
-				" and has " + numberOfStops + " stops." +
+				" ticket price is $" + getTicketPrice() +
+				" and has " + getNumberOfStops() + " stops." +
 				" It was built in " + buildYear +
 				" and its Skip is " + skipName + ".";
 	}

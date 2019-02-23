@@ -19,10 +19,12 @@ package transport;
  */
 public class PublicTransport {
 
-	// Visibility: protected (package access and derived classes) -> This allows for easily extending the class
+	// Old Visibility: protected (package access and derived classes) -> This allows for easily extending the class
 	// and derived classes can use these attributes without using mutators and accessors.
-	protected double ticketPrice;
-	protected int    numberOfStops;
+	// New Visibility: private -> All derived classes must use mutators and accessors to access these attributes
+	// Only affects the derived toString (parameterized constructor and equals() uses super)
+	private double ticketPrice;
+	private int    numberOfStops;
 
 	/**
 	 * Default Constructor for PublicTransport

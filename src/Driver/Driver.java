@@ -1,4 +1,4 @@
-// -----------------------------------------------------
+package Driver;// -----------------------------------------------------
 // Assignment 2
 // Part: 1
 // Written by: Laurent (40020483)
@@ -17,13 +17,12 @@ import air.*;
 import water.*;
 import city.*;
 
-
 /**
  * Names and ID: Laurent Lao (40020483)
  * COMP249
  * Assignment #2 Part 1
  * Due Date: February 24 2019
- * Driver file containing main and some static helper methods.
+ * Driver.Driver file containing main and some static helper methods.
  */
 public class Driver {
 
@@ -59,6 +58,51 @@ public class Driver {
 			"Purple", "Green",
 			"Blue", "Brown",
 			"White", "Gray"};
+
+	/**
+	 * Copying City Bus into another array of PublicTransport
+	 *
+	 * @param publicTransports an array containing the PublicTransports to be copied
+	 *
+	 * @return an array representing the new copied array
+	 */
+	public static PublicTransport[] copyCityBus(PublicTransport[] publicTransports) {
+		PublicTransport[] publicTransports_copy = new PublicTransport[publicTransports.length];
+
+		for (int i = 0; i < publicTransports.length; i++)
+		{
+			// Find the class of the object
+			String objectClass = publicTransports[i].getClass().toString();
+			objectClass = objectClass.substring(6); // remove "class "
+
+			// Using the COPY CONSTRUCTORS of the DIFFERENT LISTED CLASSES as specified in the assignment
+			// Assignment says the only copy CityBusses; and since Metro and Tram are also CityBusses -> it should work.
+			if (objectClass.equals("transport.PublicTransport") || objectClass.equals("air.Aircraft") || objectClass.equals("water.Ferry"))
+			{
+				publicTransports_copy[i] = null;
+			}
+			else if (objectClass.equals("city.CityBus"))
+			{
+				publicTransports_copy[i] = new CityBus((CityBus) publicTransports[i]);
+			}
+			else if (objectClass.equals("city.Metro"))
+			{
+				publicTransports_copy[i] = new Metro((Metro) publicTransports[i]);
+			}
+			else if (objectClass.equals("city.Tram"))
+			{
+				publicTransports_copy[i] = new Tram((Tram) publicTransports[i]);
+			}
+			else
+			{
+				// Bad code -> exit
+				System.out.println("Debug: Unrecognized class");
+				System.exit(0);
+			}
+		}
+
+		return publicTransports_copy;
+	}
 
 	/**
 	 * This assignment is meant to evaluate inheritance.
@@ -161,6 +205,17 @@ public class Driver {
 		int[] arrayOfIndex = traceSearchLeastAndMostExpensive(publicTransports);
 		System.out.println("The least expensive item is at index " + arrayOfIndex[0] + ": " + publicTransports[arrayOfIndex[0]]);
 		System.out.println("The most  expensive item is at index " + arrayOfIndex[1] + ": " + publicTransports[arrayOfIndex[1]]);
+
+		// Using copyCityBus()
+		System.out.println("*** Using copyCityBus() ***");
+		PublicTransport[] publicTransport_copy = copyCityBus(publicTransports);
+		printingArrayObjects(publicTransport_copy);
+
+		// Specifying whether the copyCityBus is correct
+		System.out.println("The copy contains copies of all CityBusses (including derived classes Metro and Tram)" +
+				"\nBy inspecting the copies, I came to the conclusion that the array has been correctly copied even without the help of Polymorphism via .clone()" +
+				"\nThis is due to a check for the class of the objects, which is the only way I could have implemented the call to the copy constructor of \n" +
+				"all the listed classes as well as the correctly implemented copy constructors that called the super's copy constructor.\n\n");
 
 		// Signal end of program
 		System.out.println("End of Program");
@@ -313,20 +368,6 @@ public class Driver {
 	}
 
 	// End of code testers
-
-	/**
-	 * Copying City Bus into another array of PublicTransport
-	 * @param publicTransports an array containing the PublicTransports to be copied
-	 * @return an array representing the new copied array
-	 */
-	public static PublicTransport [] copyCityBus(PublicTransport [] publicTransports)
-	{
-		PublicTransport [] publicTransports_copy = new PublicTransport[publicTransports.length];
-
-		// TODO Write code here
-
-		return publicTransports_copy;
-	}
 
 	/**
 	 * Fills an array with random Objects from the 6 classes, ensures that the first 6 objects are at least one of each

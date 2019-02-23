@@ -36,11 +36,13 @@ public class Aircraft extends PublicTransport {
 		Yearly
 	}
 
-	// Visibility: package access -> allows for access of attributes of object from any class/object in the package
+	// Old Visibility: package access -> allows for access of attributes of object from any class/object in the package
 	// This class could be easily derived and derived classes can use these attributes without mutators and accessors
 	// as long as the derived classes are within the same package.
-	Class       aircraftClass;
-	Maintenance aircraftMaintenanceSchedule;
+	// New Visibility: private -> All derived classes must use mutators and accessors to access these attributes
+	// Doesn't affect anything as Aircraft does not have any derived classes atm
+	private Class       aircraftClass;
+	private Maintenance aircraftMaintenanceSchedule;
 
 	/**
 	 * Default Constructor for Aircraft
@@ -154,8 +156,8 @@ public class Aircraft extends PublicTransport {
 	 */
 	public String toString() {
 		return "This Aircraft 's" +
-				" ticket price is $" + ticketPrice +
-				" and has " + numberOfStops + " stops." +
+				" ticket price is $" + getTicketPrice() +
+				" and has " + getNumberOfStops() + " stops." +
 				" Its class is " + aircraftClass +
 				" and it is maintained " + aircraftMaintenanceSchedule + ".";
 	}

@@ -19,11 +19,13 @@ package city;
  */
 public class Metro extends CityBus {
 
-	// Visibility: package access -> allows for access of attributes of object from any class/object in the package
+	// Old Visibility: package access -> allows for access of attributes of object from any class/object in the package
 	// This class could be easily derived and derived classes can use these attributes without mutators and accessors
 	// as long as the derived classes are within the same package.
-	int    numberOfVehicles;
-	String nameOfTheCity = "";
+	// New Visibility: private -> All derived classes must use mutators and accessors to access these attributes
+	// Doesn't affect anything as Metro does not have any derived classes atm
+	private int    numberOfVehicles;
+	private String nameOfTheCity = "";
 
 	/**
 	 * Default Constructor for Metro
@@ -137,13 +139,13 @@ public class Metro extends CityBus {
 	 */
 	public String toString() {
 		return "This Metro's" +
-				" ticket price is $" + ticketPrice +
-				", has " + numberOfStops + " stops" +
+				" ticket price is $" + getTicketPrice() +
+				", has " + getNumberOfStops() + " stops" +
 				" and " + numberOfVehicles + " vehicles." +
-				" The Route Number " + routeNumber +
-				" (" + lineName + ")" +
+				" The Route Number " + getRouteNumber() +
+				" (" + getLineName() + ")" +
 				" operating in " + nameOfTheCity +
-				" started in " + beginOperationYear +
-				" and is driven by " + driverName + ".";
+				" started in " + getBeginOperationYear() +
+				" and is driven by " + getDriverName() + ".";
 	}
 }

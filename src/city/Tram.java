@@ -19,10 +19,12 @@ package city;
  */
 public class Tram extends CityBus {
 
-	// Visibility: package access -> allows for access of attributes of object from any class/object in the package
+	// Old Visibility: package access -> allows for access of attributes of object from any class/object in the package
 	// This class could be easily derived and derived classes can use these attributes without mutators and accessors
 	// as long as the derived classes are within the same package.
-	int maximumSpeed;
+	// New Visibility: private -> All derived classes must use mutators and accessors to access these attributes
+	// Doesn't affect anything as Tram does not have any derived classes atm
+	private int maximumSpeed;
 
 	/**
 	 * Default Constructor for Tram
@@ -114,12 +116,12 @@ public class Tram extends CityBus {
 	 */
 	public String toString() {
 		return "This Tram's" +
-				" ticket price is $" + ticketPrice +
-				", has " + numberOfStops + " stops" +
-				" and has a maximum speed of " + maximumSpeed + " km/h. " +
-				" The Route Number " + routeNumber +
-				" (" + lineName + ")" +
-				" started in " + beginOperationYear +
-				" and is driven by " + driverName + ".";
+				" ticket price is $" + getTicketPrice() +
+				", has " + getNumberOfStops() + " stops" +
+				" and has a maximum speed of " + maximumSpeed + " km/h." +
+				" The Route Number " + getRouteNumber() +
+				" (" + getLineName() + ")" +
+				" started in " + getBeginOperationYear() +
+				" and is driven by " + getDriverName() + ".";
 	}
 }
