@@ -71,25 +71,22 @@ public class Driver {
 
 		for (int i = 0; i < publicTransports.length; i++)
 		{
-			// Find the class of the object
-			String objectClass = publicTransports[i].getClass().toString();
-			objectClass = objectClass.substring(6); // remove "class "
-
 			// Using the COPY CONSTRUCTORS of the DIFFERENT LISTED CLASSES as specified in the assignment
-			// Assignment says the only copy CityBusses; and since Metro and Tram are also CityBusses -> it should work.
-			if (objectClass.equals("transport.PublicTransport") || objectClass.equals("air.Aircraft") || objectClass.equals("water.Ferry"))
+			// Assignment says the only copy CityBusses; and since Metro and Tram are also CityBusses -> it should be copied
+			if (publicTransports[i].getClass() == PublicTransport.class || publicTransports[i].getClass() == Aircraft.class || publicTransports[i].getClass() == Ferry.class)
 			{
+				// Assigning null to non-CityBusses
 				publicTransports_copy[i] = null;
 			}
-			else if (objectClass.equals("city.CityBus"))
+			else if (publicTransports[i].getClass() == CityBus.class)
 			{
 				publicTransports_copy[i] = new CityBus((CityBus) publicTransports[i]);
 			}
-			else if (objectClass.equals("city.Metro"))
+			else if (publicTransports[i].getClass() == Metro.class)
 			{
 				publicTransports_copy[i] = new Metro((Metro) publicTransports[i]);
 			}
-			else if (objectClass.equals("city.Tram"))
+			else if (publicTransports[i].getClass() == Tram.class)
 			{
 				publicTransports_copy[i] = new Tram((Tram) publicTransports[i]);
 			}
@@ -122,6 +119,8 @@ public class Driver {
 		PublicTransport[] variousObjectsArray    = new PublicTransport[numberOfVariousObjects];
 
 		// Filling the first 6 slots and their copy  // Ferry, City Bus, Tram, Metro
+		System.out.println("Filling the array with " + numberOfVariousObjects + " objects");
+
 		System.out.println("At Index 0\nCreating a parameterized PublicTransport and its copy...");
 		variousObjectsArray[0] = new PublicTransport(10, 5);
 		PublicTransport publicTransportObject_same = new PublicTransport(10, 5);
@@ -197,8 +196,9 @@ public class Driver {
 		}
 
 		// Generating 15 objects
+		System.out.println("\n*** Generating the 15 objects ***");
 		PublicTransport[] publicTransports = new PublicTransport[15];
-		fillArrayPublicTransport(publicTransports, 0);
+		fillArrayPublicTransport(publicTransports);
 		printingArrayObjects(publicTransports);
 
 		// Searching for least and mox expensive: arrayOfIndex[0] is least; arrayOfIndex[1] is most
